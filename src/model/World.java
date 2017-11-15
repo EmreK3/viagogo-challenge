@@ -18,6 +18,7 @@ public class World {
 	
 	public World() {
 		dataGenerator();
+		System.out.println("Number of events in current world: " + map.size());
 	}
 	
 	public void scanLocation(Coordinates c) {
@@ -34,9 +35,12 @@ public class World {
 			Coordinates coords = dist.getValue();
 			Event event = map.get(coords);
 			
-			Ticket t = event.findCheapestTicket();
-			
-			al.add(t + " Distance " + d);
+			if(event.findCheapestTicket() == null) {
+				System.out.println("You've run into a test where something wrong happens LMAO");
+			} else {
+				Ticket t = event.findCheapestTicket();
+				al.add(t + " Distance " + d);
+			}	
 		}
 		
 		if(al.size() < 4) {

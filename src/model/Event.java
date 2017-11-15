@@ -24,9 +24,13 @@ public class Event {
 	}
 	
 	public Ticket findCheapestTicket() {
-		Collections.sort(availableTickets);
-		Ticket c = availableTickets.get(0);
-		return c;
+		if(availableTickets.size() > 0) {
+			Collections.sort(availableTickets);
+			Ticket c = availableTickets.get(0);
+			return c;
+		} else {
+			return null;
+		}
 	}
 	
 	public void addTicket(Ticket ticket) {
