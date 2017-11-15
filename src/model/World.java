@@ -35,9 +35,7 @@ public class World {
 			Coordinates coords = dist.getValue();
 			Event event = map.get(coords);
 			
-			if(event.findCheapestTicket() == null) {
-				System.out.println("You've run into a test where something wrong happens LMAO");
-			} else {
+			if(!(event.findCheapestTicket() == null)) {
 				Ticket t = event.findCheapestTicket();
 				al.add(t + " Distance " + d);
 			}	
