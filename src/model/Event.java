@@ -11,7 +11,7 @@ public class Event {
 	private ArrayList<Ticket> availableTickets;
 	
 	public Event() {
-		generateID = eventIdentifier++; // Generate unique ID for the event
+		generateID = ++eventIdentifier; // Generate unique ID for the event
 		availableTickets = new ArrayList<Ticket>();
 	}
 	
@@ -25,7 +25,6 @@ public class Event {
 	
 	public Ticket findCheapestTicket() {
 		Collections.sort(availableTickets);
-		System.out.println(availableTickets);
 		Ticket c = availableTickets.get(0);
 		return c;
 	}

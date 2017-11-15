@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -24,9 +25,9 @@ public class Ticket implements Comparable<Ticket> {
 	
 	@Override
 	public int compareTo(Ticket t) {
-		if(this.price == t.price) {
+		if(price == t.getPrice()) {
 			return 0;
-		} else if(this.price > t.price) {
+		} else if(price > t.getPrice()) {
 			return 1;
 		} else {
 			return -1;
@@ -35,11 +36,16 @@ public class Ticket implements Comparable<Ticket> {
 	
 	@Override
 	public String toString() {
-		return "Event " + eventID + " - " + getPrice() + ",";
+		return "Event " + eventID + " - " + getPriceString() + ",";
 	}
 	
-	public String getPrice() {
-		return curr.getSymbol() + " " + price;
+	public double getPrice() {
+		return price;
+	}
+	
+	public String getPriceString() {
+		DecimalFormat formatter = new DecimalFormat("#0.00");
+		return curr.getSymbol() + " " + formatter.format(price);
 	}
 
 	
