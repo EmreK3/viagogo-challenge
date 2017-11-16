@@ -48,7 +48,7 @@ public class World {
 					Event event = map.get(coords);
 					if(!(event.findCheapestTicket() == null)) {
 						Ticket t = event.findCheapestTicket();
-						al.add(coords + " " + t + " Distance " + d);
+						al.add(t + " Distance " + d);
 					}
 				} 
 			} else {
@@ -58,7 +58,7 @@ public class World {
 
 				if(!(event.findCheapestTicket() == null)) {
 					Ticket t = event.findCheapestTicket();
-					al.add(coords + " " + t + " Distance " + d);
+					al.add(t + " Distance " + d);
 				}	
 			}
 		}
