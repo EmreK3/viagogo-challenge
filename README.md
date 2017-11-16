@@ -47,7 +47,7 @@ Event 006 - $01.40, Distance 12
 
 ### To Run ###
 
-* Navigate to the root of the directory in the terminal
+Navigate to the root of the directory in the terminal:
 
 ` > gradle build `
 
