@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class World {
-	
+
 	// Map that links a a set of coordinates to an Event
 	private Map<Coordinates, Event> map = new TreeMap<Coordinates, Event>();
 	private ArrayList<Coordinates> closest;
