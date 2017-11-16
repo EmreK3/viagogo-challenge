@@ -27,6 +27,7 @@ public class Event {
 		if(availableTickets.size() > 0) {
 			Collections.sort(availableTickets);
 			Ticket c = availableTickets.get(0);
+			//System.out.println(availableTickets);
 			return c;
 		} else {
 			return null;

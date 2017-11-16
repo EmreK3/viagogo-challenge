@@ -1,47 +1,69 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.TreeMap;
 
 public class World {
 	
-	Random rand = new Random();
-	
-	private final double max = 150.00;
-	private final double min = 20.00;
-	private final double diff = max-min;
-	
 	// Map that links a a set of coordinates to an Event
 	private Map<Coordinates, Event> map = new TreeMap<Coordinates, Event>();
-	
-	public World() {
-		dataGenerator();
-		System.out.println("Number of events in current world: " + map.size());
+	private ArrayList<Coordinates> closest;
+
+	public World(Coordinates c) {
+		scanLocation(c);
 	}
-	
+
 	public void scanLocation(Coordinates c) {
-		Map<Integer, Coordinates> distances = new TreeMap<Integer, Coordinates>();
+		Map<Integer, List<Coordinates>> distances = new TreeMap<Integer, List<Coordinates>>();
 		for(Map.Entry<Coordinates, Event> e : map.entrySet()) {
 			int d = c.distanceTo(e.getKey());
-			distances.put(d, e.getKey());
+
+			List<Coordinates> list = distances.get(d);
+			if(list == null)
+			{
+				ArrayList<Coordinates> newList = new ArrayList<Coordinates>();
+				newList.add(e.getKey());
+				distances.put(d, newList);
+			}else
+			{
+				list.add(e.getKey());
+				distances.put(d, list);
+
+			}
+
 		}
-		
+
+		closest = new ArrayList<Coordinates>();
 		ArrayList<String> al = new ArrayList<String>();
-		
-		for(Map.Entry<Integer, Coordinates> dist : distances.entrySet()) {
+
+		for(Map.Entry<Integer, List<Coordinates>> dist : distances.entrySet()) {
 			int d = dist.getKey();
-			Coordinates coords = dist.getValue();
-			Event event = map.get(coords);
-			
-			if(!(event.findCheapestTicket() == null)) {
-				Ticket t = event.findCheapestTicket();
-				al.add(t + " Distance " + d);
-			}	
+
+			if(dist.getValue().size() > 1) {
+				for(int i = 0; i < dist.getValue().size(); i++) {
+					Coordinates coords = dist.getValue().get(i);
+					closest.add(coords);
+					Event event = map.get(coords);
+					if(!(event.findCheapestTicket() == null)) {
+						Ticket t = event.findCheapestTicket();
+						al.add(coords + " " + t + " Distance " + d);
+					}
+				} 
+			} else {
+				Coordinates coords = dist.getValue().get(0);
+				closest.add(coords);
+				Event event = map.get(coords);
+
+				if(!(event.findCheapestTicket() == null)) {
+					Ticket t = event.findCheapestTicket();
+					al.add(coords + " " + t + " Distance " + d);
+				}	
+			}
 		}
-		
-		if(al.size() < 4) {
+
+		if(al.size() <= 4) {
 			for(int i = 0; i < al.size(); i++) {
 				System.out.println(al.get(i));
 			}
@@ -50,38 +72,14 @@ public class World {
 				System.out.println(al.get(i));
 			}
 		}
-		
-		
+
 	}
-	
-	public void dataGenerator() {
-		int amountOfEvents = rand.nextInt(100);
-		
-		for(int i = 0; i < amountOfEvents; i++) {
-			Coordinates c = createCoordinates();
-			if(!map.containsKey(c)) {
-				map.put(c, createEvent());
-			}
-		}
+
+	public Map<Coordinates, Event> getMap() {
+		return map;
 	}
-	
-	public Coordinates createCoordinates() {
-		return new Coordinates(-10 + rand.nextInt(21), -10 + rand.nextInt(21));
-	}
-	
-	public Event createEvent() {
-		Event e = new Event();
-		int amountOfTickets = rand.nextInt(50);
- 
-		double randomValue = min + Math.random( ) * diff;
-		double tempRes = Math.floor(randomValue * 10);
-		double finalRes = tempRes/10;
-		
-		for(int i = 0; i < amountOfTickets; i++) {
-			Ticket t = new Ticket(e.getEventID(), finalRes);
-			e.addTicket(t);
-		}
-		
-		return e;
+
+	public ArrayList<Coordinates> getClosest() {
+		return closest;
 	}
 }
