@@ -21,18 +21,14 @@ public class World {
 			int d = c.distanceTo(e.getKey());
 
 			List<Coordinates> list = distances.get(d);
-			if(list == null)
-			{
+			if(list == null) {
 				ArrayList<Coordinates> newList = new ArrayList<Coordinates>();
 				newList.add(e.getKey());
 				distances.put(d, newList);
-			}else
-			{
+			} else {
 				list.add(e.getKey());
 				distances.put(d, list);
-
 			}
-
 		}
 
 		closest = new ArrayList<Coordinates>();
