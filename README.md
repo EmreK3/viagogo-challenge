@@ -54,3 +54,15 @@ Navigate to the root of the directory in the terminal:
 Once built, run
 
 `> gradle run -q`
+
+### Q&A ###
+
+* How might you change your program if you needed to support multiple events at the same location?
+
+Support for multiple events at one location could be handled in many ways. The first that comes to mind is sorting by date; 
+If one of the closest locations has multiple events, we can sort these by the date in which they are held, as no two mutually exclusive events can occur at the same time and location. The user will then also be able to compare the date and time with other close events.
+
+
+* How would you change your program if you were working with a much larger world size?
+
+Working with a larger world size means working with a larger dataset, this means that efficiency starts to take on a huge role. If I was dealing with a larger world size, I would create a database, as storing all the data in a Java class isn’t very useful. I would make calls to this database every time I need to access the information.
